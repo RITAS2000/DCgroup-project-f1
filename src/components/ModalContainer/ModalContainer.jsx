@@ -6,6 +6,7 @@ import {
 import ModalReUse from '../ModalReUse/ModalReUse.jsx';
 import ModalNotAuthorized from '../ModalNotAuthorized/ModalNotAuthorized.jsx';
 import ModalLogoutConfirm from '../ModalLogoutConfirm/ModalLogoutConfirm.jsx';
+import ModalRecipeSaved from '../ModalRecipeSaved/ModalRecipeSaved.jsx';
 
 export default function ReModalContainer() {
   const isOpen = useSelector(selectIsModalOpen);
@@ -17,6 +18,7 @@ export default function ReModalContainer() {
     <ModalReUse>
       {type === 'notAuthorized' && <ModalNotAuthorized />}
       {type === 'logoutConfirm' && <ModalLogoutConfirm />}
+      {type === 'recipeSaved' && <ModalRecipeSaved />}
     </ModalReUse>
   );
 }

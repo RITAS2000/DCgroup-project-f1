@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../redux/modal/slice.js';
 
-export default function ModalNotAuthorized() {
+const ModalNotAuthorized = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
@@ -24,3 +24,4 @@ export default function ModalNotAuthorized() {
   );
 }
 
+export default ModalNotAuthorized;
