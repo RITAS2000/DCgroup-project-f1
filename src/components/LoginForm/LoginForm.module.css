@@ -45,7 +45,8 @@
     height: 41px;
     transition: background-color 0.8s ease;
 }
-.input:focus {
+.input:focus,
+.input:hover {
   border: 1.5px solid #9b6c43;
   box-shadow: 0 0 0 4px rgba(78, 70, 180, 0.2);
   background: #fff;

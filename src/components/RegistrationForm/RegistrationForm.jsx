@@ -6,6 +6,9 @@ import css from './RegistrationForm.module.css';
 import Container from "../Container/Container";
 import { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 import * as Yup from 'yup';
 
@@ -45,20 +48,26 @@ export default function RegistrationForm() {
   };
 
   const handleSubmit = async (values, { resetForm }) => {
+  try {
     const result = await dispatch(
       register({
         name: values.name,
         email: values.email,
         password: values.password,
-      }),
+      })
     );
-    if (result.meta.requestStatus === 'fulfilled') {
-      navigate('/auth/login');
+
+    if (result.meta.requestStatus === "fulfilled") {
+      navigate("/auth/login");
+    } else {
+      toast.error(result.payload?.message || "Registration failed. Please try again.");
     }
-
+  } catch (error) {
+    toast.error(error?.message || "Something went wrong. Please try again.");
+  } finally {
     resetForm();
-  };
-
+  }
+};
   return (
     <Formik
       initialValues={initialValues}
