@@ -3,8 +3,7 @@ import {
   Form,
   Field,
   ErrorMessage,
-  FieldArray,
-  useFormikContext,
+  FieldArray
 } from 'formik';
 import { useId, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -16,8 +15,8 @@ import { useMediaQuery } from 'react-responsive';
 import css from './AddRecipePage.module.css';
 import { FeedbackSchema } from './FeedbackSchema.js';
 import CategoryAndIngredientsSelect from '../../components/CategoryAndIngredientsSelect/CategoryAndIngredientsSelect.jsx';
-import categories from './categoriesTemp.json';
-import ingredients from './ingredientsTemp.json';
+// import categories from './categoriesTemp.json';
+// import ingredients from './ingredientsTemp.json';
 import IngredientsTable from '../../components/IngredientsTable/IngredientsTable.jsx';
 import { addRecipe } from '../../redux/addRecipe/operations.js';
 import Container from '../../components/Container/Container.jsx';
@@ -26,6 +25,7 @@ import { fetchCategories } from '../../redux/categorie/operation.js';
 import { selectCategories } from '../../redux/categorie/selectors.js';
 import { fetchIngredients } from '../../redux/ingredient/operations.js';
 import { selectIngredients } from '../../redux/ingredient/selectors.js';
+import { openModal } from '../../redux/modal/slice.js';
 
 const useIsTabletOrAbove = () => {
   return useMediaQuery({ query: '(min-width: 768px)' });
@@ -324,7 +324,7 @@ const AddRecipePage = () => {
                   />
                 </div>
                 <div className={css.btnWrapper}>
-                  <button className={css.btn} type="submit">
+                  <button className={css.btn} type="submit" onClick={() => dispatch(openModal({type: 'recipeSaved'}))}>
                     Publish Recipe
                   </button>
                 </div>

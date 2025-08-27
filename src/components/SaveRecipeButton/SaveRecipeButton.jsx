@@ -49,7 +49,7 @@ export default function SaveRecipeButton({ recipeId }) {
           setIsSaved(false);
         } else {
           console.log('not logged in');
-          dispatch(openModal({}));
+          dispatch(openModal({ type: 'notAuthorized' }));
         }
       } catch (error) {
         toast.error(`Error deleting saved recipe: ${error}`);
@@ -67,7 +67,7 @@ export default function SaveRecipeButton({ recipeId }) {
           setIsSaved(true);
         } else {
           console.log('not logged in');
-          dispatch(openModal({}));
+          dispatch(openModal({ type: 'notAuthorized' }));
         }
       } catch (error) {
         toast.error(`Error adding saved recipe: ${error}`);
