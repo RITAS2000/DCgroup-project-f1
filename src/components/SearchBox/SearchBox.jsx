@@ -1,7 +1,7 @@
 import s from './SearchBox.module.css';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { searchRecipes } from '../../redux/recipes/operations';
 import { toast } from 'react-toastify';
 import { setQuery, clearResults } from '../../redux/recipes/slice'; // 🟢 додав clearResults
@@ -18,7 +18,7 @@ export default function SearchBox({ resetRef }) {
   // 🟢 додав resetRef
   const dispatch = useDispatch();
   const initValues = { q: '' };
-
+  const query = useSelector((s) => s.recipes.query);
   const onSubmit = async (values, actions) => {
     try {
       const q = values.q.trim();
@@ -26,7 +26,8 @@ export default function SearchBox({ resetRef }) {
         actions.setSubmitting(false);
         return;
       }
-      dispatch(setQuery({ title: q, category: '', ingredient: '' }));
+
+      dispatch(setQuery({ title: q }));
 
       const res = await dispatch(searchRecipes({ title: q, page: 1 })).unwrap();
       if (!res.recipes || res.recipes.length === 0) {

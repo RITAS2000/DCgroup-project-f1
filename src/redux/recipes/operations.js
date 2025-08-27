@@ -10,9 +10,21 @@ export const searchRecipes = createAsyncThunk(
   'recipes/search',
   async ({ title, category, ingredient, page = 1 }, { rejectWithValue }) => {
     try {
-      const { data } = await api.get('api/recipes', {
-        params: { title, category, ingredient, page },
-      });
+      // Нормализуем параметры запроса (главное — title как СТРОКА)
+      const t =
+        typeof title === 'string'
+          ? title
+          : title?.title
+          ? String(title.title)
+          : '';
+
+      const params = {};
+      if (t) params.title = t;
+      if (category) params.category = category;
+      if (ingredient) params.ingredient = ingredient;
+      if (page) params.page = page;
+
+      const { data } = await api.get('api/recipes', { params });
 
       const d = data?.data ?? {};
       return {
