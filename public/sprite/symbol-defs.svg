@@ -9,7 +9,6 @@
     d="M8 12l8 8 8-8">
   </path>
 </symbol>
-
 <symbol id="icon-close-circle" viewBox="0 0 32 32">
 <path fill="none" stroke="#fff" style="stroke: var(--color1, #fff)" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="1.333" d="M25.5 16c0 5.247-4.253 9.5-9.5 9.5s-9.5-4.253-9.5-9.5v0c0-5.247 4.253-9.5 9.5-9.5s9.5 4.253 9.5 9.5v0z"></path>
 <path fill="none" stroke="#fff" style="stroke: var(--color1, #fff)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.333" d="M19.7 12.346l-3.7 3.7M16 16.046l-3.7 3.699M16 16.045l3.7 3.7M16 16.045l-3.7-3.699"></path>
