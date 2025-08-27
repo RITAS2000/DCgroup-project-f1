@@ -1,0 +1,11 @@
+.select {
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--gray);
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+  padding: 12px;
+  height: 48px;
+  background: var(--white);
+  width: 100%;
+}

@@ -1,0 +1,132 @@
+.card {
+  background: #faf3e0;
+  border-radius: 16px;
+  padding: 12px;
+  display: grid;
+  gap: 16px;
+  width: 361px;
+  height: 479px;
+}
+
+@media (min-width: 768px) {
+  .card {
+    width: 339px;
+    height: 483px;
+  }
+}
+
+.thumbWrap {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: #f4efe8;
+}
+
+@media (min-width: 768px) {
+  .thumbWrap {
+    width: 315px;
+    height: 230px;
+  }
+}
+
+.thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.thumbFallback {
+  width: 100%;
+  height: 100%;
+  background: #ececec;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+.timeBadge {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 2px 0px 0px;
+  width: 53px;
+  height: 30px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 12px;
+  background: #fff;
+}
+
+.descBlock {
+  display: grid;
+  gap: 8px;
+}
+.desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 155%;
+  font-weight: 400;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.8em;
+}
+.calsPill {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.footerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.moreBtn {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  border: 1px solid var(--black);
+  border-radius: 8px;
+  padding: 8px;
+  background: #faf3e0;
+  color: #1c1c1c;
+  cursor: pointer;
+}
+
+.moreBtnOwn {
+  width: 337px;
+  height: 40px;
+}
+
+.moreBtnFav {
+  width: 289px;
+  height: 40px;
+}
+
+.favBtn {
+  border-radius: 8px;
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  stroke-width: 1px;
+  stroke: #fff;
+  background: #9b6c43;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
