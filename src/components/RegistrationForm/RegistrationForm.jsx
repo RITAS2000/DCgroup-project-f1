@@ -7,8 +7,6 @@ import Container from "../Container/Container";
 import { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
-
-
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
@@ -36,7 +34,7 @@ export default function RegistrationForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
   const initialValues = {
@@ -55,7 +53,7 @@ export default function RegistrationForm() {
       }),
     );
     if (result.meta.requestStatus === 'fulfilled') {
-      navigate('/auth/login'); 
+      navigate('/auth/login');
     }
 
     resetForm();
@@ -66,8 +64,10 @@ export default function RegistrationForm() {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
+      validateOnChange={true}   // 🔹 валидация срабатывает на каждый ввод
+      validateOnBlur={false}    // 🔹 не валидация по blur, чтобы не «пряталась» ошибка
     >
-      {({ errors, touched, values }) => (   
+      {({ errors, values, touched }) => (   // 🔹 добавили touched (используется ниже)
         <Container variant="white">
           <div className={css.container}>
             <Form className={css.form}>
@@ -76,6 +76,7 @@ export default function RegistrationForm() {
                 Join our community of culinary enthusiasts, save your favorite
                 recipes, and share your cooking creations
               </p>
+
               <label className={css.label}>
                 <span className={css.labelText}>Enter your name</span>
                 <Field
@@ -92,15 +93,17 @@ export default function RegistrationForm() {
                   className={css.error}
                 />
               </label>
+
               <label className={css.label}>
                 <span className={css.labelText}>Enter your email address</span>
                 <Field
                   name="email"
                   type="email"
                   placeholder="email@gmail.com"
-                   className={`${css.input} ${
-                     values.email && errors.email ? css.inputError : ''
-                    } ${values.email && !errors.email ? css.input : ''}`}
+                  aria-invalid={Boolean(values.email && errors.email)}
+                  className={`${css.input} ${
+                    values.email && errors.email ? css.inputError : ''
+                  }`} // 🔹 красный бордер сразу при невалидном вводе
                 />
                 <ErrorMessage
                   name="email"
@@ -108,6 +111,7 @@ export default function RegistrationForm() {
                   className={css.error}
                 />
               </label>
+
               <label className={css.label}>
                 <span className={css.labelText}>Create a strong password</span>
                 <div className={css.passWrapper}>
@@ -117,15 +121,15 @@ export default function RegistrationForm() {
                     placeholder="********"
                     className={`${css.input} ${
                       errors.password && touched.password ? css.inputError : ''
-                      }`}
+                    }`}
                   />
                   <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className={css.toggleBtn}
-                    >
-                     {showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
-                    </button>
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className={css.toggleBtn}
+                  >
+                    {showPassword ? <AiOutlineEye size={20} />  : <AiOutlineEyeInvisible size={20} /> }
+                  </button>
                 </div>
                 <ErrorMessage
                   name="password"
@@ -133,24 +137,25 @@ export default function RegistrationForm() {
                   className={css.error}
                 />
               </label>
+
               <label className={css.label}>
                 <span className={css.labelText}>Repeat your password</span>
                 <div className={css.passWrapper}>
                   <Field
                     name="confirm"
-                     type={showConfirm ? 'text' : 'password'} 
+                    type={showConfirm ? 'text' : 'password'}
                     placeholder="********"
                     className={`${css.input} ${
                       errors.confirm && touched.confirm ? css.inputError : ''
                     }`}
                   />
-                   <button
-                      type="button"
-                      onClick={() => setShowConfirm(!showConfirm)}
-                      className={css.toggleBtn}
-                    >
-                      {showConfirm ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}   
-                    </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirm(!showConfirm)}
+                    className={css.toggleBtn}
+                  >
+                    {showConfirm ? <AiOutlineEye size={20} />  : <AiOutlineEyeInvisible size={20} />}
+                  </button>
                 </div>
                 <ErrorMessage
                   name="confirm"
@@ -158,9 +163,11 @@ export default function RegistrationForm() {
                   className={css.error}
                 />
               </label>
+
               <button type="submit" className={css.button}>
                 Create account
               </button>
+
               <div className={css.box}>
                 <p className={css.registerHint}>
                   Already have an account?

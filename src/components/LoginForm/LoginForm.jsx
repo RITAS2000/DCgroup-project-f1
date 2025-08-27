@@ -67,7 +67,7 @@ export default function LoginForm() {
                 <div className={css.passWrapper}>
                   <Field
                     name="password"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     placeholder="********"
                     className={`${css.input} ${
                       errors.password && touched.password ? css.inputError : ""
@@ -77,8 +77,9 @@ export default function LoginForm() {
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
                       className={css.toggleBtn}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
                     >
-                      {showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
+                      {showPassword ? <AiOutlineEye size={20} />  : <AiOutlineEyeInvisible size={20} />}
                     </button>
                 </div>
                 <ErrorMessage
