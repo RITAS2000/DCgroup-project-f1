@@ -20,9 +20,9 @@ const AddRecipePage = lazy(() =>
 const ProfilePage = lazy(() =>
   import('../../pages/ProfilePage/ProfilePage.jsx'),
 );
-const NotFoundPage = lazy(() =>
-  import('../../pages/NotFoundPage/NotFoundPage.jsx'),
-);
+// const NotFoundPage = lazy(() =>
+//   import('../../pages/NotFoundPage/NotFoundPage.jsx'),
+// );
 const RecipeViewPage = lazy(() =>
   import('../../pages/RecipeViewPage/RecipeViewPage.jsx'),
 );
@@ -78,7 +78,7 @@ export default function App() {
               }
             />
 
-            <Route path="*" element={<NotFoundPage />} />
+            {/* <Route path="*" element={<NotFoundPage />} /> */}
           </Routes>
         </Suspense>
 
