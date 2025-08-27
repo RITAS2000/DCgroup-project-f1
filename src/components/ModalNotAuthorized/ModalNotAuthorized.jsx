@@ -17,8 +17,8 @@ const ModalNotAuthorized = () => {
       <h2 className={css.title}>Not authorized</h2>
       <p className={css.text}>Please log in or register to open your account.</p>
       <div className={css.action}>
-        <button className={css.loginBtn} onClick={() => handleNavigate('/login')}>Log in</button>
-        <button className={css.registerBtn} onClick={() => handleNavigate('/register')}>Register</button>
+        <button className={css.loginBtn} onClick={() => handleNavigate('auth/login')}>Log in</button>
+        <button className={css.registerBtn} onClick={() => handleNavigate('auth/register')}>Register</button>
       </div>
     </>
   );
