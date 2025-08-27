@@ -20,10 +20,12 @@ const CategorySelect = ({ selectedCategory, onChange }) => {
 
   return (
     <div className={css.categorySelectWrapper}>
-      {loading && <span>Loading ...</span>}
-      {error && <span>Error: {error}</span>}
+      {loading && <span className={css.hint}>Loading…</span>}
+      {error && <span className={css.hint}>Error: {String(error)}</span>}
       {!loading && !error && (
         <select
+          id="filter-category"
+          aria-label="Category"
           value={selectedCategory || ''}
           onChange={(e) => onChange(e.target.value)}
           className={css.select}
