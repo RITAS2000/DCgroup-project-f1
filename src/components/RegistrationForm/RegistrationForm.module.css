@@ -78,9 +78,7 @@
 .inputError:focus,
 .inputError:hover {
     border-color: var(--red, #c80000) !important;
-    /* 🔹 перекрываем фокус/ховер */
     box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
-    /* опционально */
 }
 
 .inputError::placeholder {

@@ -64,10 +64,10 @@ export default function RegistrationForm() {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
-      validateOnChange={true}   // 🔹 валидация срабатывает на каждый ввод
-      validateOnBlur={false}    // 🔹 не валидация по blur, чтобы не «пряталась» ошибка
+      validateOnChange={true}  
+      validateOnBlur={false}    
     >
-      {({ errors, values, touched }) => (   // 🔹 добавили touched (используется ниже)
+      {({ errors, values, touched }) => (   
         <Container variant="white">
           <div className={css.container}>
             <Form className={css.form}>
@@ -103,7 +103,7 @@ export default function RegistrationForm() {
                   aria-invalid={Boolean(values.email && errors.email)}
                   className={`${css.input} ${
                     values.email && errors.email ? css.inputError : ''
-                  }`} // 🔹 красный бордер сразу при невалидном вводе
+                  }`} 
                 />
                 <ErrorMessage
                   name="email"
