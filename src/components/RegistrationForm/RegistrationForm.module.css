@@ -13,6 +13,7 @@
     background-color: #faf3e0;
 
 }
+
 .title {
     font-family: "Montserrat", sans-serif;
     font-weight: 600;
@@ -20,6 +21,7 @@
     text-align: center;
     color: #000;
 }
+
 .text {
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
@@ -38,6 +40,7 @@
     width: 298px;
     height: 391px;
 }
+
 .label {
     position: relative;
     display: flex;
@@ -46,31 +49,43 @@
     flex-direction: column;
     gap: 4px;
 }
-.labelText{
+
+.labelText {
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
     font-size: 12px;
     color: #000;
 }
+
 .input {
     border: 1px solid #d9d9d9;
     border-radius: 8px;
+    outline: none;
     padding: 8px;
     width: 298px;
     height: 41px;
     transition: background-color 0.8s ease;
 }
+
 .input:focus,
 .input:hover {
-  border: 1.5px solid #9b6c43;
-  box-shadow: 0 0 0 4px rgba(78, 70, 180, 0.2);
-  background: #fff;
+    border: 1.5px solid #9b6c43;
+    box-shadow: 0 0 0 4px rgba(78, 70, 180, 0.2);
+    background: #fff;
 }
 
-.inputError {
-  border: 1.5px solid #c80000;
+.inputError,
+.inputError:focus,
+.inputError:hover {
+    border-color: var(--red, #c80000) !important;
+    /* 🔹 перекрываем фокус/ховер */
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    /* опционально */
 }
 
+.inputError::placeholder {
+    color: #c80000;
+}
 
 .input::placeholder {
     font-weight: 400;
@@ -79,13 +94,12 @@
     color: #9f9f9f;
     transition: background-color 0.8s ease;
 }
-.inputError::placeholder {
-    color: #c80000;
-}
+
 
 .input:focus::placeholder {
     color: #000;
 }
+
 .button {
     display: block;
     border-radius: 8px;
@@ -101,25 +115,30 @@
     color: #fff;
     transition: background-color 0.8s ease;
 }
+
 .button:hover,
 .button:focus {
     background: #6d554b;
     outline: none;
 }
+
 .button:focus-visible {
     outline: none;
     box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
 }
+
 button:active {
     background: #9b6c43;
     box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
 }
+
 .button:disabled {
     background: #9b6c43;
     opacity: 0.3;
     cursor: not-allowed;
     box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px #fff;
 }
+
 .registerHint {
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
@@ -128,6 +147,7 @@ button:active {
     text-align: center;
     color: #000;
 }
+
 .registerLink {
     font-family: "Montserrat", sans-serif;
     font-weight: 600;
@@ -135,12 +155,14 @@ button:active {
     text-decoration-skip-ink: none;
     padding-left: 5px;
 }
+
 .error {
     position: absolute;
     color: #c80000;
     font-size: 14px;
     bottom: -18px;
 }
+
 .passWrapper {
     position: relative;
     width: 100%;
@@ -156,7 +178,7 @@ button:active {
     font-size: 18px;
     font-size: 20px;
     color: #000;
-        
+
 }
 
 
@@ -172,9 +194,11 @@ button:active {
         width: 458px;
         height: 351px;
     }
+
     .input {
         width: 458px;
     }
+
     .button {
         width: 458px;
     }
@@ -187,7 +211,7 @@ button:active {
 
 
 @media screen and (min-width: 1440px) {
-    .container{
+    .container {
         width: 420px;
         height: 646px;
         margin: 52px 402px 34px 402px;
@@ -197,9 +221,11 @@ button:active {
         width: 356px;
         height: 351px;
     }
-    .input{
+
+    .input {
         width: 356px;
     }
+
     .button {
         width: 356px;
     }
