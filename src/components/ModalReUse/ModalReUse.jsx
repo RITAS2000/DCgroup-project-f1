@@ -3,19 +3,9 @@ import { useDispatch } from 'react-redux';
 import { closeModal } from '../../redux/modal/slice.js';
 import css from './ModalReUse.module.css';
 import { useCallback } from 'react';
-// import { useNavigate } from 'react-router-dom';
 
 export default function ModalReUse({ children }) {
   const dispatch = useDispatch();
-  // const token = localStorage.getItem('token');
-  // const navigate = useNavigate();
-
-  // const handleClose = useCallback(() => {
-  //   dispatch(closeModal());
-  //   if (!token) {
-  //     navigate('/');
-  //   }
-  // }, [dispatch, navigate, token]);
 
   const handleClose = useCallback(() => dispatch(closeModal()), [dispatch]);
 

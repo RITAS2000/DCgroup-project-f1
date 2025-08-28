@@ -26,7 +26,7 @@ export default function RecipeCard({
   const handleAddToSavedRecipes = (e) => {
     e.preventDefault();
     if (!isLoggedIn) {
-      dispatch(openModal({ type: 'notAuthorized' }));
+      dispatch(openModal({ type: 'errorSaving' }));
     }
   };
 
