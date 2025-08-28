@@ -60,7 +60,7 @@
   width: 164px;
   padding-top: 8px;
   padding-bottom: 8px;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  transition: background-color 0.8s ease, color 0.8s ease;
 }
 
 .cancelBtn:hover,

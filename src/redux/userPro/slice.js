@@ -1,56 +1,64 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchOwn, fetchSaved, removeSaved } from './thunks';
+import { fetchOwn, fetchSaved, removeSaved, deleteOwn } from './thunks';
 import { normalizeListResponse, resolveTotalPages } from './utils';
+
 const initialState = {
   items: [],
+  page: 1,
+  perPage: 12,
+  totalItems: 0,
+  totalPages: 0,
   loading: false,
   error: null,
-  totalPages: 1,
-  page: 1,
-  hasNext: false,
   currentRequestId: null,
+  hasNext: false,
   type: 'own',
-  totalItems: 0,
 };
+
+const dedupeById = (arr) => {
+  const map = new Map();
+  for (const x of arr) map.set(x.id ?? x._id, x);
+  return [...map.values()];
+};
+
 const applyFulfilled = (state, action) => {
   if (state.currentRequestId !== action.meta.requestId) return;
   state.loading = false;
   state.error = null;
   state.currentRequestId = null;
+
   const { list, totalPages, totalItems } = normalizeListResponse(
     action.payload,
   );
-  state.totalItems = totalItems;
   const page = action.meta?.arg?.page ?? 1;
-  const replace = action.meta?.arg?.replace ?? page <= 1;
   const limit = action.meta?.arg?.limit ?? 12;
-  const tp = resolveTotalPages(totalPages, totalItems, limit);
+  const replace = action.meta?.arg?.replace ?? page <= 1;
+
   state.page = page;
-  state.totalPages = tp;
-  state.hasNext = page < tp;
-  state.items = replace
-    ? list
-    : [
-        ...state.items,
-        ...list.filter(
-          (it) =>
-            !state.items.some((x) => (x.id ?? x._id) === (it.id ?? it._id)),
-        ),
-      ];
+  state.perPage = limit;
+  state.totalItems = totalItems;
+  state.totalPages = resolveTotalPages(totalPages, totalItems, limit);
+  state.hasNext = page < state.totalPages;
+
+  const newItems = list ?? [];
+  state.items = replace ? newItems : dedupeById([...state.items, ...newItems]);
 };
+
 const handlePending = (state, action) => {
   state.loading = true;
   state.error = null;
   state.currentRequestId = action.meta.requestId;
+
   const page = action.meta?.arg?.page ?? 1;
   const replace = action.meta?.arg?.replace ?? page <= 1;
   if (replace) {
     state.items = [];
     state.page = 1;
-    state.totalPages = 1;
+    state.totalPages = 0;
     state.hasNext = false;
   }
 };
+
 const handleRejected = (state, action) => {
   if (state.currentRequestId !== action.meta.requestId) return;
   state.loading = false;
@@ -58,6 +66,7 @@ const handleRejected = (state, action) => {
   state.error = action.payload || action.error?.message || 'Error';
   state.hasNext = false;
 };
+
 const userProfileSlice = createSlice({
   name: 'userProfile',
   initialState,
@@ -69,7 +78,7 @@ const userProfileSlice = createSlice({
         state.type = newType;
         state.items = [];
         state.page = 1;
-        state.totalPages = 1;
+        state.totalPages = 0;
         state.hasNext = false;
         state.error = null;
       }
@@ -88,9 +97,16 @@ const userProfileSlice = createSlice({
         state.items = state.items.filter(
           (it) => String(it.id ?? it._id) !== id,
         );
+      })
+      .addCase(deleteOwn.fulfilled, (state, action) => {
+        const id = String(action.payload);
+        state.items = state.items.filter(
+          (it) => String(it.id ?? it._id) !== id,
+        );
       });
   },
 });
+
 export const { resetProfile, setRecipeType } = userProfileSlice.actions;
 export const selectUserProfile = (state) => state.userProfile;
 export const selectUserRecipes = (state) => state.userProfile.items;
@@ -100,4 +116,5 @@ export const selectUserProfilePage = (state) => state.userProfile.page;
 export const selectUserProfileTotalPages = (state) =>
   state.userProfile.totalPages;
 export const selectUserProfileHasNext = (state) => state.userProfile.hasNext;
+
 export default userProfileSlice.reducer;
