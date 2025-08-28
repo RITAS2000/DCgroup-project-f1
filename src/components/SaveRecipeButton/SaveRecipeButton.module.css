@@ -20,7 +20,7 @@
 .saveButton:hover,
 .saveButton:focus {
     background-color: #6D554B;
-    transition: background-color 0.8s ease;
+    transition: background-color 0.8s ease, box-shadow 0.8s ease, border 0.8s ease;
 }
 
 .saveButton:active {

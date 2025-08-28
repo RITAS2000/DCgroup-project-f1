@@ -29,7 +29,7 @@
   line-height: 0;
   background: none;
   border: none;
-  transition: transform 0.25s ease, color 0.25s ease;
+  transition: transform 0.8s ease, color 0.8s ease;
 
 }
 .closeBtn:hover {

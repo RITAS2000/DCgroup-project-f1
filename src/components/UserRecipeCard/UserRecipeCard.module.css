@@ -106,7 +106,7 @@
   font-size: 16px;
   cursor: pointer;
   background-color: transparent;
-  transition: background-color 0.8s ease;
+  transition: background-color 0.8s ease, box-shadow 0.8s ease, border 0.8s ease;
 }
 
 @media (min-width: 768px) {
@@ -149,7 +149,7 @@
   height: 40px;
   background-color: transparent;
   background: #9b6c43;
-  transition: background-color 0.8s ease;
+  transition: background-color 0.8s ease, box-shadow 0.8s ease, border 0.8s ease;
 }
 
 .favBtn:hover {

@@ -59,7 +59,7 @@
     height: 56px;
     max-width: 361px;
     background-color: #9b6c43;
-    transition: background-color 0.8s ease;
+    transition: background-color 0.8s ease, box-shadow 0.8s ease, border 0.8s ease;
 }
 
 .link:hover,

@@ -66,7 +66,7 @@
 .resetSearch:focus,
 .resetSearch:hover {
   background: #6d554b;
-  transition: background-color 0.8s ease;
+  transition: background-color 0.8s ease, box-shadow 0.8s ease;
   color: #fff;
   border: 1.5px solid #9b6c43;
 }

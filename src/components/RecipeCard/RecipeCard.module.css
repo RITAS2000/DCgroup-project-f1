@@ -132,7 +132,7 @@
     background-color: transparent;
     color: black;
 
-    transition: background-color 0.8s;
+    transition: background-color 0.8s ease, box-shadow 0.8s ease;
 }
 
 .btn_learn:hover {
@@ -162,7 +162,7 @@
     background-color: transparent;
     color: black;
 
-    transition: background-color 0.8s;
+    transition: background-color 0.8s ease, box-shadow 0.8s ease;
 }
 
 .btn_save:hover {

@@ -26,7 +26,7 @@
   font-size: 18px;
   line-height: 1.55;
   color: #000;
-  transition: background-color 0.8s ease;
+  transition: box-shadow 0.8s ease;
 }
 .error {
   border: 1.5px solid #c80000;
@@ -70,7 +70,6 @@
 .btn:hover,
 .btn:focus {
   background: #6d554b;
-  transition: background-color 0.8s ease;
 }
 
 
