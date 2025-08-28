@@ -24,7 +24,8 @@ const recipesSlice = createSlice({
   initialState,
   reducers: {
     setQuery(state, { payload }) {
-      state.query = payload || { title: '', category: '', ingredient: '' };
+      // не затираем существующие поля, а дозаписываем
+      state.query = { ...state.query, ...(payload || {}) };
     },
     clearResults(state) {
       state.items = [];

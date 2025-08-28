@@ -20,17 +20,20 @@ const IngredientsSelect = ({ selectedIngredient, onChange }) => {
 
   return (
     <div className={css.ingredientsSelectWrapper}>
-      {loading && <span>...</span>}
-      {error && <span>Error: {error}</span>}
-      {!loading && !error && (
+      {loading && <span className={css.hint}>Loading…</span>}
+      {error && <span className={css.hint}>Error: {String(error)}</span>}
+      {!error && (
         <select
+          id="filter-ingredient"
+          aria-label="Ingredient"
           value={selectedIngredient || ''}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)} // передаём _id
+          disabled={loading}
           className={css.select}
         >
           <option value="">Ingredient</option>
-          {ingredients.map((ing) => (
-            <option key={ing._id} value={ing.name}>
+          {(ingredients || []).map((ing) => (
+            <option key={ing._id} value={ing._id}>
               {ing.name}
             </option>
           ))}

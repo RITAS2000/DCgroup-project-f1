@@ -39,24 +39,24 @@ export default function SaveRecipeButton({ recipeId }) {
     }, [isLoggedIn, recipeId]);
 
 
-    const handleUnsave = () => {
-        const deleteSavedRecipe = async () => {
-            try {
-                if (isLoggedIn) {
-                    await delSavedRecipes(recipeId);
-                    setIsSaved(false);
-                } else {
-                    console.log('not logged in');
-                    dispatch(openModal({}));
-                };
+  const handleUnsave = () => {
+    const deleteSavedRecipe = async () => {
+      try {
+        console.log('recipeId', recipeId);
 
-            } catch (error) {
-                toast.error(`Error deleting saved recipe: ${error}`);
-            }
-        };
-        deleteSavedRecipe();
+        if (isLoggedIn) {
+          await delSavedRecipes(recipeId);
+          setIsSaved(false);
+        } else {
+          console.log('not logged in');
+          dispatch(openModal({ type: 'notAuthorized' }));
+        }
+      } catch (error) {
+        toast.error(`Error deleting saved recipe: ${error}`);
+      }
     };
-
+    deleteSavedRecipe();
+  };
 
     const handleSave = () => {
         const addSavedRecipe = async () => {
@@ -64,18 +64,17 @@ export default function SaveRecipeButton({ recipeId }) {
                 if (isLoggedIn) {
                     await postSavedRecipes(recipeId);
 
-                    setIsSaved(true);
-                } else {
-                    console.log('not logged in');
-                    dispatch(openModal({ type: 'notAuthorized' }));
-                };
-
-            } catch (error) {
-            toast.error(`Error adding saved recipe: ${error}` );
-            }
-        };
-        addSavedRecipe();
+          setIsSaved(true);
+        } else {
+          console.log('not logged in');
+          dispatch(openModal({ type: 'notAuthorized' }));
+        }
+      } catch (error) {
+        toast.error(`Error adding saved recipe: ${error}`);
+      }
     };
+    addSavedRecipe();
+  };
 
 //     return (
 //         <>

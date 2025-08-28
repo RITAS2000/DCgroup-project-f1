@@ -7,6 +7,9 @@ import css from "./LoginForm.module.css";
 import Container from "../Container/Container";
 import { useState } from "react";  
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -26,12 +29,20 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false); 
 
   const handleSubmit = async (values, { resetForm }) => {
+  try {
     const result = await dispatch(login(values));
+
     if (result.meta.requestStatus === "fulfilled") {
       navigate("/");
+    } else {
+      toast.error(result.payload?.message || "Login failed. Please try again.");
     }
+  } catch (error) {
+    toast.error(error?.message || "Something went wrong. Please try again.");
+  } finally {
     resetForm();
-  };
+  }
+};
 
   return (
     <Formik
