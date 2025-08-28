@@ -16,8 +16,7 @@
     background: #faf3e0;
     padding: 56px 24px;
     border-radius: 32px;
-    max-width: 361px;
-    width: 90%;
+    width: auto;
     text-align: center;
 }
 

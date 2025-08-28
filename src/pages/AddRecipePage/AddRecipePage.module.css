@@ -82,6 +82,16 @@
   }
 }
 
+/* @media only screen and (min-width: 1440px) {
+  .photoIcon {
+    width: 163px;
+    height: 136px;
+  }
+} */
+
+.photoIcon {
+}
+
 .hiddenInput {
   display: none;
 }
@@ -111,6 +121,25 @@
 }
 
 .errorMsg {
+  padding: 0px 12px;
+  width: 220px;
+  height: 15px;
+
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--red);
+
+  position: absolute;
+  top: 100%;
+  left: 4px;
+  margin-top: 0;
+  z-index: 1;
+}
+
+@media only screen and (min-width: 768px) {
+  .errorMsg {
+    margin-top: 4px;
+  }
 }
 
 .input::placeholder,
@@ -138,6 +167,7 @@
 .descrWrapper,
 .timeWrapper {
   margin-bottom: 16px;
+  position: relative;
 }
 
 @media only screen and (min-width: 768px) {
@@ -263,6 +293,7 @@
 }
 
 .btnAndTableWrapper {
+  position: relative;
 }
 
 @media only screen and (min-width: 768px) {
@@ -317,6 +348,7 @@
 
 .instructWrapper {
   margin-bottom: 40px;
+  position: relative;
 }
 
 @media only screen and (min-width: 1440px) {

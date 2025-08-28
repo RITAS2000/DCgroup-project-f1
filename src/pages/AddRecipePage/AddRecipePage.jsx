@@ -1,11 +1,4 @@
-import {
-  Formik,
-  Form,
-  Field,
-  ErrorMessage,
-  FieldArray,
-  useFormikContext,
-} from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import { useId, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
@@ -16,8 +9,8 @@ import { useMediaQuery } from 'react-responsive';
 import css from './AddRecipePage.module.css';
 import { FeedbackSchema } from './FeedbackSchema.js';
 import CategoryAndIngredientsSelect from '../../components/CategoryAndIngredientsSelect/CategoryAndIngredientsSelect.jsx';
-import categories from './categoriesTemp.json';
-import ingredients from './ingredientsTemp.json';
+// import categories from './categoriesTemp.json';
+// import ingredients from './ingredientsTemp.json';
 import IngredientsTable from '../../components/IngredientsTable/IngredientsTable.jsx';
 import { addRecipe } from '../../redux/addRecipe/operations.js';
 import Container from '../../components/Container/Container.jsx';
@@ -26,6 +19,7 @@ import { fetchCategories } from '../../redux/categorie/operation.js';
 import { selectCategories } from '../../redux/categorie/selectors.js';
 import { fetchIngredients } from '../../redux/ingredient/operations.js';
 import { selectIngredients } from '../../redux/ingredient/selectors.js';
+import { openModal } from '../../redux/modal/slice.js';
 
 const useIsTabletOrAbove = () => {
   return useMediaQuery({ query: '(min-width: 768px)' });
@@ -131,7 +125,7 @@ const AddRecipePage = () => {
                   ) : (
                     <div className={css.placeholder}>
                       <svg className={css.photoIcon} width="82" height="82">
-                        <use href="../../../public/sprite/symbol-defs.svg#icon-photo"></use>
+                        <use href="/sprite/symbol-defs.svg#icon-photo"></use>
                       </svg>
                     </div>
                   )}
@@ -299,14 +293,14 @@ const AddRecipePage = () => {
                             remove={remove}
                           />
                         )}
+                        <ErrorMessage
+                          className={css.errorMsg}
+                          name="ingredients"
+                          component="span"
+                        />
                       </div>
                     )}
                   </FieldArray>
-                  <ErrorMessage
-                    className={css.errorMsg}
-                    name="ingredients"
-                    component="span"
-                  />
                 </fieldset>
 
                 <div className={css.instructWrapper}>
@@ -324,7 +318,11 @@ const AddRecipePage = () => {
                   />
                 </div>
                 <div className={css.btnWrapper}>
-                  <button className={css.btn} type="submit">
+                  <button
+                    className={css.btn}
+                    type="submit"
+                    onClick={() => dispatch(openModal({ type: 'recipeSaved' }))}
+                  >
                     Publish Recipe
                   </button>
                 </div>
