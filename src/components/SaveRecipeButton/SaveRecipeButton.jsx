@@ -25,10 +25,7 @@ export default function SaveRecipeButton({ recipeId }) {
             try {
                 if (isLoggedIn) {
                     const result = await getSavedRecipes();
-
-
                     const savedRecipes = result.data.data || [];
-
 
                     const found = savedRecipes.find(recipe => recipe._id === recipeId);
                     setIsSaved(found);
@@ -45,8 +42,6 @@ export default function SaveRecipeButton({ recipeId }) {
     const handleUnsave = () => {
         const deleteSavedRecipe = async () => {
             try {
-
-
                 if (isLoggedIn) {
                     await delSavedRecipes(recipeId);
                     setIsSaved(false);
