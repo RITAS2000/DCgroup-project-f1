@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchOwn, fetchSaved, removeSaved } from '../../redux/userPro/thunks';
+import { fetchOwn, fetchSaved } from '../../redux/userPro/thunks';
+import { deleteOwn } from '../../redux/userPro/actions';
 import {
   selectUserRecipes,
   selectUserProfileLoading,
@@ -47,7 +48,7 @@ export default function UserRecipesList({ type }) {
               <UserRecipeCard
                 item={it}
                 mode={type}
-                onRemoved={(id) => dispatch(removeSaved(id))}
+                onRemoved={(id) => dispatch(deleteOwn(id))}
                 recipeId={it.recipe?._id || it._id}
               />
             </li>

@@ -55,6 +55,19 @@ export async function deleteFavorite(recipeId, signal) {
   return res.data;
 }
 
+export async function deleteRecipe(recipeId, signal) {
+  const token = localStorage.getItem('accessToken');
+
+  const res = await api.delete(`/api/recipes/own/${recipeId}`, {
+    signal,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return res.data;
+}
+
 export async function getRecipeById(id, { signal } = {}) {
   const res = await api.get(`/api/recipes/${id}`, { signal });
   return res.data;

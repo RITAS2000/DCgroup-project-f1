@@ -6,6 +6,7 @@ import { selectUserProfileTotalItems } from '../../redux/userPro/selectors';
 
 import ProfileNavigation from '../../components/ProfileNavigation/ProfileNavigation.jsx';
 import UserRecipesList from '../../components/UserRecipeList/UserRecipesList.jsx';
+import FiltersProfile from '../../components/FiltersProfile/FiltersProfile.jsx';
 
 export default function ProfilePage() {
   const { recipeType } = useParams();
@@ -21,7 +22,10 @@ export default function ProfilePage() {
       <header className={s.header}>
         <h1 className={s.h1}>My profile</h1>
         <ProfileNavigation active={recipeType} />
-        <p className={s.count}>{totalItems} recipes</p>
+        <div className={s.filtersRow}>
+          <p className={s.count}>{totalItems} recipes</p>
+          <FiltersProfile />
+        </div>
       </header>
 
       {recipeType === 'own' && <UserRecipesList type="own" />}

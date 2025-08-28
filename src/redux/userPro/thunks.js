@@ -3,6 +3,7 @@ import {
   getOwnRecipes,
   getSavedRecipes,
   deleteFavorite,
+  deleteRecipe,
 } from '../../api/recipes';
 import { getErrorMessage } from '../../utils/errors';
 
@@ -49,6 +50,18 @@ export const removeSaved = createAsyncThunk(
   async (recipeId, { rejectWithValue, signal }) => {
     try {
       await deleteFavorite(recipeId, signal);
+      return recipeId;
+    } catch (e) {
+      return rejectWithValue(getErrorMessage(e));
+    }
+  },
+);
+
+export const deleteOwn = createAsyncThunk(
+  'profile/deleteOwn',
+  async (recipeId, { rejectWithValue, signal }) => {
+    try {
+      await deleteRecipe(recipeId, signal);
       return recipeId;
     } catch (e) {
       return rejectWithValue(getErrorMessage(e));
