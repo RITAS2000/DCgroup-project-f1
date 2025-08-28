@@ -6,7 +6,7 @@ import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn.jsx';
 import RecipeCard from '../RecipeCard/RecipeCard.jsx';
 import css from './RecipesList.module.css';
 import NoResultSearch from '../NoResultSearch/NoResultSearch.jsx'; // 🟢 додав
-import { clearResults } from '../../redux/recipes/slice.js'; // 🟢 додав
+import { clearResults, setFeedTotal } from '../../redux/recipes/slice.js'; // 🟢 setFeedTotal
 
 import {
   selectRecipes,
@@ -56,6 +56,15 @@ export default function RecipesList({ onResetAll }) {
       });
       const data = response.data?.data || {};
       const recipesArray = data.data || [];
+
+      // ⬇️ Сохраняем общее количество рецептов ленты (для Filters)
+      if (typeof data.totalItems !== 'undefined') {
+        dispatch(setFeedTotal(data.totalItems));
+      } else {
+        dispatch(
+          setFeedTotal(Array.isArray(recipesArray) ? recipesArray.length : 0),
+        );
+      }
 
       setRecipes((prev) => {
         const add = recipesArray.filter(
@@ -122,7 +131,6 @@ export default function RecipesList({ onResetAll }) {
         />
       );
     }
-    // return <div className={css.recipe_container}>Nothing found</div>;
 
     const canLoadMore = searchPage < totalPages;
 

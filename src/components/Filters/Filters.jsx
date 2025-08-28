@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CategorySelect from '../CategorySelect/CategorySelect.jsx';
 import IngredientsSelect from '../IngredientsSelect/IngredientsSelect.jsx';
@@ -11,75 +11,68 @@ const SPRITE = '/sprite/symbol-defs.svg';
 const Filters = ({ title }) => {
   const dispatch = useDispatch();
 
-  // локальные фильтры
   const [selectedCategory, setSelectedCategory] = useState('');
-  // здесь храним именно _id ингредиента
+  // храним именно _id ингредиента
   const [selectedIngredient, setSelectedIngredient] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
-  // из стора
-  const query = useSelector((s) => s.recipes.query); // { title, category, ingredient }
-  const totalItems = useSelector((s) => s.recipes.totalItems); // общее кол-во найденных
+  const query = useSelector((s) => s.recipes.query);
+  const totalItems = useSelector((s) => s.recipes.totalItems);
   const itemsLen = useSelector((s) => s.recipes.items?.length) || 0;
-  const total = totalItems || itemsLen;
+  const totalFromSearch = totalItems || itemsLen;
 
-  // список ингредиентов для конвертации id -> name
+  // ⬇️ НОВОЕ: общее число рецептов ленты (показываем до начала поиска)
+  const feedTotal = useSelector((s) => s.recipes.feedTotal) || 0;
+
   const ingredients = useSelector(selectIngredients);
   const ingredientsLoaded =
     Array.isArray(ingredients) && ingredients.length > 0;
 
-  // нормализованный заголовок/поисковая строка (строка!)
   const queryTitle = (title ?? query?.title ?? '').trim();
 
-  // мапа id->name для быстрого получения имени по выбранному id
-  // const ingIdToName = useMemo(() => {
-  //   const m = new Map();
-  //   for (const ing of ingredients || []) {
-  //     if (ing && ing._id) m.set(String(ing._id), ing.name);
-  //   }
-  //   return m;
-  // }, [ingredients]);
+  // есть ли активный поиск
+  const hasSearch =
+    Boolean(queryTitle) ||
+    Boolean(selectedCategory) ||
+    Boolean(selectedIngredient);
 
-  // имя ингредиента, которое ждёт бэкенд (конвертация из _id)
-  // const selectedIngredientName = selectedIngredient;
-  // ? ingIdToName.get(String(selectedIngredient)) || ''
-  // : '';
+  // число для отображения
+  const displayTotal = hasSearch ? totalFromSearch : feedTotal;
+
+  // не допускаем повторного одинакового запроса
+  const lastKeyRef = useRef('');
 
   useEffect(() => {
-    // если выбран ингредиент по _id, но справочник ещё не загрузился —
-    // ждём, чтобы корректно конвертировать id -> name
+    // ждём подгрузки справочника, если выбран ингредиент
     if (selectedIngredient && !ingredientsLoaded) return;
 
-    // если нет ни текста, ни выбранных фильтров — не дергаем бэкенд
+    // нет ни текста, ни фильтров — не ищем
     if (!queryTitle && !selectedCategory && !selectedIngredient) return;
-    console.log(
-      '[filters] title=',
-      queryTitle,
-      'category=',
-      selectedCategory,
-      'ingredientName=',
-      selectedIngredient,
-    );
+
+    const key = `${queryTitle}|${selectedCategory}|${selectedIngredient}|1`;
+    if (key === lastKeyRef.current) return; // параметры не изменились
+
     dispatch(
       searchRecipes({
-        title: queryTitle, // строка
-        category: selectedCategory, // имя категории
-        ingredient: selectedIngredient, // ИМЯ ингредиента
+        title: queryTitle,
+        category: selectedCategory,
+        // бек принимает _id ингредиента
+        ingredient: selectedIngredient,
         page: 1,
       }),
     );
+    lastKeyRef.current = key;
   }, [
     dispatch,
     queryTitle,
     selectedCategory,
-    selectedIngredient, // важно, чтобы эффект сработал, когда _id сменился до загрузки справочника
-    ingredientsLoaded, // и повторился, когда справочник подгрузился
+    selectedIngredient,
+    ingredientsLoaded,
   ]);
 
   const handleReset = () => {
     setSelectedCategory('');
     setSelectedIngredient('');
-    // title по ТЗ не трогаем
   };
 
   const headingTitle = queryTitle;
@@ -94,7 +87,7 @@ const Filters = ({ title }) => {
 
       <div className={css.bottomRow}>
         <span className={css.count}>
-          {total} recipe{total !== 1 ? 's' : ''}
+          {displayTotal} recipe{displayTotal !== 1 ? 's' : ''}
         </span>
 
         <button
@@ -120,7 +113,6 @@ const Filters = ({ title }) => {
             onChange={setSelectedCategory}
           />
 
-          {/* сюда и уходит/хранится _id; до запроса конвертируется в name */}
           <IngredientsSelect
             selectedIngredient={selectedIngredient}
             onChange={setSelectedIngredient}

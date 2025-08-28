@@ -11,6 +11,9 @@ const initialState = {
   error: null,
   query: { title: '', category: '', ingredient: '' },
   searchMode: false,
+
+  // ⬇️ ДОБАВЛЕНО: общее число рецептов ленты (для отображения на старте)
+  feedTotal: 0,
 };
 
 const dedupeById = (arr) => {
@@ -36,6 +39,12 @@ const recipesSlice = createSlice({
       state.error = null;
       state.searchMode = false;
       state.query = { title: '', category: '', ingredient: '' };
+      // feedTotal не трогаем — оно относится к ленте
+    },
+
+    // ⬇️ ДОБАВЛЕНО: сохраняем общее число рецептов ленты
+    setFeedTotal(state, { payload }) {
+      state.feedTotal = Number(payload) || 0;
     },
   },
   extraReducers: (b) => {
@@ -89,5 +98,5 @@ const recipesSlice = createSlice({
   },
 });
 
-export const { setQuery, clearResults } = recipesSlice.actions;
+export const { setQuery, clearResults, setFeedTotal } = recipesSlice.actions;
 export default recipesSlice.reducer;
