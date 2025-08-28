@@ -11,7 +11,7 @@ const CategoryAndIngredientsSelect = ({
   // const { values } = useFormikContext();
 
   return (
-    <>
+    <div className={css.selectWrapper}>
       <Field className={css.select} as="select" name={name} id={id}>
         <option value="" disabled hidden>
           {placeholder}
@@ -24,7 +24,7 @@ const CategoryAndIngredientsSelect = ({
           ))}
       </Field>
       <ErrorMessage className={css.errorMsg} name={name} component="span" />
-    </>
+    </div>
   );
 };
 
