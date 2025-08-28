@@ -11,6 +11,7 @@ const setAuthHeader = (token) => {
 
 const clearAuthHeader = () => {
   delete axios.defaults.headers.common.Authorization;
+  // localStorage.removeItem('persist:token');
 };
 
 export const register = createAsyncThunk(
@@ -34,7 +35,8 @@ export const login = createAsyncThunk(
       const res = await axios.post('/api/auth/login', values);
       console.log('Login response:', res);
 
-      const token = res.data.token; // 🔹 визначаємо token
+      const token = res.data.data.accessToken; // 🔹 визначаємо token
+      console.log('Extracted token:', token);
       setAuthHeader(token);
       return res.data;
     } catch (error) {
@@ -43,42 +45,23 @@ export const login = createAsyncThunk(
   },
 );
 
-// export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-//   try {
-//     const state = thunkAPI.getState();
-//     const token = state.auth.token;
-
-//     await axios.post(
-//       '/api/auth/logout',
-//       {},
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       },
-//     );
-//     clearAuthHeader();
-//     return;
-//   } catch (error) {
-//     return thunkAPI.rejectWithValue(error.message);
-//   }
-// });
-
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-  const state = thunkAPI.getState();
-  const token = state.auth.token;
-
   try {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+
     await axios.post(
       '/api/auth/logout',
       {},
-      { headers: { Authorization: `Bearer ${token}` } },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
     );
-  } catch (error) {
-    console.warn('Logout error:', error.message);
-  } finally {
-    // завжди очищаємо токен і стан
-    localStorage.removeItem('token');
     clearAuthHeader();
+    return;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
