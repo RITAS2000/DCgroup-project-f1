@@ -23,7 +23,7 @@ const IngredientsTable = ({ ingredients, remove }) => {
                 aria-label="Remove ingredient"
               >
                 <svg className={css.deleteIcon} width="24" height="28">
-                  <use href="../../../public/sprite/symbol-defs.svg#icon-delete"></use>
+                  <use href="/sprite/symbol-defs.svg#icon-delete"></use>
                 </svg>
               </button>
             </td>
