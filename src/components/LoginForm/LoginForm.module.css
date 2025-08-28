@@ -4,7 +4,8 @@
     gap: 20px;
     border-radius: 32px;
     padding: 48px 32px;
-    width: 362px;
+    max-width: 362px;
+    width: 100%;
     margin: 91px 0;
     
     background-color: #faf3e0;;
@@ -14,11 +15,15 @@
     flex-direction: column;
     align-items: center;
     gap: 27px;
-    width: 298px;
+    max-width: 298px;
+    width: 100%;
     height: 199px;
 
     background-color: #faf3e0;;
 
+}
+.label {
+    width: 100%;
 }
 .title{
     font-family: "Montserrat", sans-serif;
@@ -41,10 +46,13 @@
     border-radius: 8px;
     outline: none;
     padding: 8px;
-    width: 298px;
+    width: 100%;
+    max-width: 298px;
+    
     height: 41px;
-    transition: background-color 0.8s ease;
-}
+    transition: border-color 0.8s ease;
+ }
+
 .input:focus,
 .input:hover {
   border: 1.5px solid #9b6c43;
@@ -72,7 +80,8 @@
 .button {
     border-radius: 8px;
     padding: 8px;
-    width: 298px;
+    width: 100%;
+    max-width: 298px;
     height: 36px;
     border: none;
 
@@ -146,17 +155,20 @@
 
 @media screen and (min-width: 768px) {
     .container{
-        width: 522px;
+        max-width: 522px;
+        width: 100%;
         margin: 262px 91px;
     }
     .form {
-        width: 458px;
+        max-width: 458px;
+        width: 100%;
     }
     .input {
-        width: 458px;
+        max-width: 458px;
+        width: 100%;
     }
     .button{
-        width: 458px;
+        max-width: 458px;
     }
 
 }
@@ -171,16 +183,19 @@
 
 @media screen and (min-width: 1440px) {
     .container {
-        width: 420px;
+        max-width: 420px;
+        width: 100%;
         margin: 177px 402px 157px 402px;
     }
     .form {
-        width: 356px;
+        max-width: 356px;
+        width: 100%;
     }
     .input {
-        width: 356px;
+        max-width: 356px;
+        width: 100%;
     }
     .button {
-        width: 356px;
+        max-width: 356px;
     }
 }
