@@ -1,10 +1,4 @@
-import {
-  Formik,
-  Form,
-  Field,
-  ErrorMessage,
-  FieldArray
-} from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import { useId, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
@@ -131,7 +125,7 @@ const AddRecipePage = () => {
                   ) : (
                     <div className={css.placeholder}>
                       <svg className={css.photoIcon} width="82" height="82">
-                        <use href="../../../public/sprite/symbol-defs.svg#icon-photo"></use>
+                        <use href="/sprite/symbol-defs.svg#icon-photo"></use>
                       </svg>
                     </div>
                   )}
@@ -299,14 +293,14 @@ const AddRecipePage = () => {
                             remove={remove}
                           />
                         )}
+                        <ErrorMessage
+                          className={css.errorMsg}
+                          name="ingredients"
+                          component="span"
+                        />
                       </div>
                     )}
                   </FieldArray>
-                  <ErrorMessage
-                    className={css.errorMsg}
-                    name="ingredients"
-                    component="span"
-                  />
                 </fieldset>
 
                 <div className={css.instructWrapper}>
@@ -324,7 +318,11 @@ const AddRecipePage = () => {
                   />
                 </div>
                 <div className={css.btnWrapper}>
-                  <button className={css.btn} type="submit" onClick={() => dispatch(openModal({type: 'recipeSaved'}))}>
+                  <button
+                    className={css.btn}
+                    type="submit"
+                    onClick={() => dispatch(openModal({ type: 'recipeSaved' }))}
+                  >
                     Publish Recipe
                   </button>
                 </div>
