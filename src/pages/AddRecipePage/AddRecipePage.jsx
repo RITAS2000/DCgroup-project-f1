@@ -56,7 +56,7 @@ const AddRecipePage = () => {
     calories: '',
     category: '',
     ingredientsName: '',
-    amount: '',
+    measure: '',
     ingredients: [],
     instructions: '',
   };
@@ -64,17 +64,19 @@ const AddRecipePage = () => {
   const handleSubmit = async (values, actions) => {
     const formData = new FormData();
 
-    const sanitizedIngredients = values.ingredients.map(({ name, amount }) => ({
-      name,
-      amount,
-    }));
+    const sanitizedIngredients = values.ingredients.map(
+      ({ name, measure }) => ({
+        name,
+        measure,
+      }),
+    );
 
     for (const key in values) {
       if (key === 'ingredients') {
         formData.append(key, JSON.stringify(sanitizedIngredients));
       } else if (key === 'thumb' && values.thumb) {
         formData.append(key, values.thumb); // File
-      } else if (key !== 'ingredientsName' && key !== 'amount') {
+      } else if (key !== 'ingredientsName' && key !== 'measure') {
         formData.append(key, values[key]);
       }
     }
@@ -253,13 +255,13 @@ const AddRecipePage = () => {
                       <Field
                         className={css.input}
                         type="text"
-                        name="amount"
+                        name="measure"
                         id={amountFieldId}
                         placeholder="100g"
                       />
                       <ErrorMessage
                         className={css.errorMsg}
-                        name="amount"
+                        name="measure"
                         component="span"
                       />
                     </div>
@@ -273,15 +275,15 @@ const AddRecipePage = () => {
                           type="button"
                           onClick={() => {
                             const name = values.ingredientsName.trim();
-                            const amount = values.amount.trim();
+                            const measure = values.measure.trim();
 
                             const selectedIngredient = ingredients.find(
                               (ing) => ing.name === name,
                             );
 
-                            push({ id: selectedIngredient._id, name, amount });
+                            push({ id: selectedIngredient._id, name, measure });
                             setFieldValue('ingredientsName', '');
-                            setFieldValue('amount', '');
+                            setFieldValue('measure', '');
                           }}
                         >
                           Add new Ingredient

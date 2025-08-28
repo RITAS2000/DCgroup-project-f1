@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 
 const ingredientItem = Yup.object().shape({
   name: Yup.string().trim().required('Ingredient name is required'),
-  amount: Yup.string()
+  measure: Yup.string()
     .trim()
     .max(16, 'Must be at most 16 characters')
     .required('Ingredient amount is required'),
