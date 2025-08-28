@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:3000/'; // треба було первирити функціонал
+// axios.defaults.baseURL = 'http://localhost:3000/'; // треба було первирити функціонал
 
-// axios.defaults.baseURL = 'https://dcgroup-react-node-b.onrender.com/';
+axios.defaults.baseURL = 'https://dcgroup-react-node-b.onrender.com/';
 
 const setAuthHeader = (token) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;

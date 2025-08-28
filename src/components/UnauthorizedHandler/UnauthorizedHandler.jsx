@@ -15,13 +15,17 @@ const UnauthorizedHandler = () => {
   const stateToken = useSelector(selectAuthToken);
 
   useEffect(() => {
-    const tokenMissing = !stateToken;
+    const tokenMissing = !(stateToken || localStorage.getItem('token'));
     if (
       tokenMissing ||
       recipesError?.status === 401 ||
       usersError?.status === 401
     ) {
       if (!tokenMissing) dispatch(logout());
+      toast.error('Session has expired. Please log in again.');
+    }
+    if (usersError?.status === 404) {
+      dispatch(logout());
       toast.error('Session has expired. Please log in again.');
     }
   }, [recipesError, usersError, stateToken, dispatch]);
