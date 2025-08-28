@@ -7,6 +7,7 @@ import {
   selectUserProfileError,
 } from '../../redux/userPro/selectors.js';
 import { toast } from 'react-toastify';
+import { clearAuth } from '../../redux/auth/slice.js';
 
 const UnauthorizedHandler = () => {
   const dispatch = useDispatch();
@@ -22,10 +23,13 @@ const UnauthorizedHandler = () => {
       usersError?.status === 401
     ) {
       if (!tokenMissing) dispatch(logout());
+      dispatch(clearAuth());
+      localStorage.removeItem('token');
       toast.error('Session has expired. Please log in again.');
     }
     if (usersError?.status === 404) {
-      dispatch(logout());
+      dispatch(clearAuth());
+      localStorage.removeItem('token');
       toast.error('Session has expired. Please log in again.');
     }
   }, [recipesError, usersError, stateToken, dispatch]);
