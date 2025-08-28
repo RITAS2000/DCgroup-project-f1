@@ -140,6 +140,7 @@ export default function RecipesList({ onResetAll }) {
           {searched.map(({ _id, thumb, title, time, description, calory }) => (
             <li className={css.recipe_item} key={_id}>
               <RecipeCard
+                id={_id}
                 thumb={thumb}
                 title={title}
                 time={time}
