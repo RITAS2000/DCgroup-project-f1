@@ -5,7 +5,7 @@ import { closeModal } from '../../redux/modal/slice.js';
 
 const ModalNotAuthorized = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
    const handleNavigate = (path) => {
     dispatch(closeModal());
@@ -13,14 +13,26 @@ const ModalNotAuthorized = () => {
   };
 
   return (
-    <>
-      <h2 className={css.title}>Not authorized</h2>
-      <p className={css.text}>Please log in or register to open your account.</p>
-      <div className={css.action}>
-        <button className={css.loginBtn} onClick={() => handleNavigate('auth/login')}>Log in</button>
-        <button className={css.registerBtn} onClick={() => handleNavigate('auth/register')}>Register</button>
+   <div className={css.backdrop} onClick={() => dispatch(closeModal())}>
+      <div className={css.modal} onClick={(e) => e.stopPropagation()}>
+        <h2 className={css.title}>Not authorized</h2>
+        <p className={css.text}>Please log in or register to open your account.</p>
+        <div className={css.action}>
+          <button
+            className={css.loginBtn}
+            onClick={() => handleNavigate('/auth/login')}
+          >
+            Log in
+          </button>
+          <button
+            className={css.registerBtn}
+            onClick={() => handleNavigate('/auth/register')}
+          >
+            Register
+          </button>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

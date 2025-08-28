@@ -11,6 +11,7 @@ import PrivateRoute from '../PrivateRoute.jsx';
 import RestrictedRoute from '../RestrictedRoute.jsx';
 import NotFound from '../../pages/NotFound/NotFound.jsx';
 import UnauthorizedHandler from '../UnauthorizedHandler/UnauthorizedHandler.jsx';
+import ReModalContainer from '../ModalContainer/ModalContainer.jsx';
 
 const MainPage = lazy(() => import('../../pages/MainPage/MainPage.jsx'));
 const AuthPage = lazy(() => import('../../pages/AuthPage/AuthPage.jsx'));
@@ -87,6 +88,7 @@ export default function App() {
           autoClose={2500}
           theme="colored"
         />
+        <ReModalContainer/>
       </Layout>
     </>
   );
