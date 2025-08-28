@@ -6,7 +6,8 @@
 
     border-radius: 32px;
     padding: 48px 32px;
-    width: 362px;
+    max-width: 362px;
+    width: 100%;
     height: 711px;
     margin: 56px 0;
 
@@ -37,13 +38,15 @@
     justify-content: flex-start;
     flex-direction: column;
     gap: 20px;
-    width: 298px;
+    max-width: 298px;
+    width: 100%;
     height: 391px;
 }
 
 .label {
     position: relative;
     display: flex;
+    width: 100%;
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
@@ -62,9 +65,10 @@
     border-radius: 8px;
     outline: none;
     padding: 8px;
-    width: 298px;
+    max-width: 298px;
+    width: 100%;
     height: 41px;
-    transition: background-color 0.8s ease;
+    transition: border-color 0.8s ease;
 }
 
 .input:focus,
@@ -103,7 +107,8 @@
     border-radius: 8px;
     border: none;
     padding: 8px;
-    width: 298px;
+    max-width: 298px;
+    width: 100%;
     height: 36px;
     margin-top: 7px;
 
@@ -183,22 +188,25 @@ button:active {
 
 @media screen and (min-width: 768px) {
     .container {
-        width: 522px;
+        max-width: 522px;
+        width: 100%;
         height: 621px;
-        margin: 152px 91px;
+        margin: 152px auto;
     }
 
     .form {
-        width: 458px;
+        max-width: 458px;
+        width: 100%;
         height: 351px;
     }
 
     .input {
-        width: 458px;
+        max-width: 458px;
+        width: 100%;
     }
 
     .button {
-        width: 458px;
+        max-width: 458px;
     }
 
 }
@@ -210,22 +218,26 @@ button:active {
 
 @media screen and (min-width: 1440px) {
     .container {
-        width: 420px;
+        max-width: 420px;
+        width: 100%;
         height: 646px;
-        margin: 52px 402px 34px 402px;
+        margin: 52px auto 34px auto;
     }
 
     .form {
-        width: 356px;
+        max-width: 356px;
+        width: 100%;
         height: 351px;
     }
 
     .input {
-        width: 356px;
+        max-width: 356px;
+        width: 100%;
     }
 
     .button {
-        width: 356px;
+        max-width: 356px;
+
     }
 
 }
