@@ -6,7 +6,7 @@ const IngredientsTable = ({ ingredients, remove }) => {
       <thead className={css.thead}>
         <tr className={css.tr}>
           <th className={css.th}>Name:</th>
-          <th className={css.th}>Amount:</th>
+          <th className={css.th}>:</th>
           <th className={css.thIcon}></th>
         </tr>
       </thead>
@@ -14,7 +14,7 @@ const IngredientsTable = ({ ingredients, remove }) => {
         {ingredients.map((ingredient, index) => (
           <tr className={css.trBody} key={ingredient.id}>
             <td className={css.td}>{ingredient.name}</td>
-            <td className={css.td}>{ingredient.amount}</td>
+            <td className={css.td}>{ingredient.measure}</td>
             <td className={css.tdIcon}>
               <button
                 className={css.btn}
