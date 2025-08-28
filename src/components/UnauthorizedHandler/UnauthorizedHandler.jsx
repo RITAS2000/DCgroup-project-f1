@@ -35,13 +35,13 @@ const UnauthorizedHandler = () => {
       if (!tokenMissing && !isAllowed) dispatch(logout());
       dispatch(clearAuth());
       localStorage.removeItem('token');
-      toast.error('Session has expired. Please log in again. тест 1');
+      toast.error('Session has expired. Please log in again.');
       navigate('/');
     }
     if (usersError?.status === 404) {
       dispatch(clearAuth());
       localStorage.removeItem('token');
-      toast.error('Session has expired. Please log in again. тест 2');
+      toast.error('Session has expired. Please log in again.');
       navigate('/');
     }
   }, [
