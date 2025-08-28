@@ -1,5 +1,5 @@
 .wrap {
-  padding: 48px 0;
+  padding: 48px 16px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -35,6 +35,19 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  max-width: 361px;
+}
+
+@media screen and (min-width: 768px) {
+  .filtersRow {
+    max-width: 704px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .filtersRow {
+    max-width: 1225px;
+  }
 }
 
 .count {
