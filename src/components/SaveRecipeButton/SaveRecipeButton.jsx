@@ -13,31 +13,28 @@ import 'react-toastify/dist/ReactToastify.css';
 import { openModal } from '../../redux/modal/slice.js';
 
 export default function SaveRecipeButton({ recipeId }) {
+  const [isSaved, setIsSaved] = useState(false);
 
-    const [isSaved, setIsSaved] = useState(false);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const dispatch = useDispatch();
 
-    const isLoggedIn = useSelector(selectIsLoggedIn);
-    const dispatch = useDispatch();
+  useEffect(() => {
+    const checkIfRecipeIsSaved = async () => {
+      try {
+        if (isLoggedIn) {
+          const result = await getSavedRecipes();
+          const savedRecipes = result.data.data || [];
 
+          const found = savedRecipes.find((recipe) => recipe._id === recipeId);
+          setIsSaved(found);
+        }
+      } catch (error) {
+        console.error('Error fetching saved recipes:', error);
+      }
+    };
 
-    useEffect(() => {
-        const checkIfRecipeIsSaved = async () => {
-            try {
-                if (isLoggedIn) {
-                    const result = await getSavedRecipes();
-                    const savedRecipes = result.data.data || [];
-
-                    const found = savedRecipes.find(recipe => recipe._id === recipeId);
-                    setIsSaved(found);
-                }
-            } catch (error) {
-                console.error("Error fetching saved recipes:", error);
-            }
-        };
-
-        checkIfRecipeIsSaved();
-    }, [isLoggedIn, recipeId]);
-
+    checkIfRecipeIsSaved();
+  }, [isLoggedIn, recipeId]);
 
   const handleUnsave = () => {
     const deleteSavedRecipe = async () => {
@@ -49,7 +46,7 @@ export default function SaveRecipeButton({ recipeId }) {
           setIsSaved(false);
         } else {
           console.log('not logged in');
-          dispatch(openModal({ type: 'notAuthorized' }));
+          dispatch(openModal({ type: 'errorSaving' }));
         }
       } catch (error) {
         toast.error(`Error deleting saved recipe: ${error}`);
@@ -58,16 +55,16 @@ export default function SaveRecipeButton({ recipeId }) {
     deleteSavedRecipe();
   };
 
-    const handleSave = () => {
-        const addSavedRecipe = async () => {
-            try {
-                if (isLoggedIn) {
-                    await postSavedRecipes(recipeId);
+  const handleSave = () => {
+    const addSavedRecipe = async () => {
+      try {
+        if (isLoggedIn) {
+          await postSavedRecipes(recipeId);
 
           setIsSaved(true);
         } else {
           console.log('not logged in');
-          dispatch(openModal({ type: 'notAuthorized' }));
+          dispatch(openModal({ type: 'errorSaving' }));
         }
       } catch (error) {
         toast.error(`Error adding saved recipe: ${error}`);
@@ -76,30 +73,30 @@ export default function SaveRecipeButton({ recipeId }) {
     addSavedRecipe();
   };
 
-//     return (
-//         <>
-//           {isSaved ? (
-//             <button onClick={handleUnsave} className={css.saveButton}>
-//               Unsave
-//               <svg className={css.icon} width="24" height="24">
-//                 <use href="/sprite/symbol-defs.svg#icon-bookmark-outline"
-//                      style={{ fill: 'white', stroke: 'none' }}/>
-//               </svg>
-//             </button>
-//           ) : (
-//             <button onClick={handleSave} className={css.saveButton}>
-//               Save
-//               <svg className={css.icon} width="24" height="24">
-//                 <use href="/sprite/symbol-defs.svg#icon-bookmark-outline"
-//                      style={{ fill: 'transparent', stroke: 'white' }}/>
-//               </svg>
-//             </button>
-//           )}
-//         </>
-//     )
-// };
+  //     return (
+  //         <>
+  //           {isSaved ? (
+  //             <button onClick={handleUnsave} className={css.saveButton}>
+  //               Unsave
+  //               <svg className={css.icon} width="24" height="24">
+  //                 <use href="/sprite/symbol-defs.svg#icon-bookmark-outline"
+  //                      style={{ fill: 'white', stroke: 'none' }}/>
+  //               </svg>
+  //             </button>
+  //           ) : (
+  //             <button onClick={handleSave} className={css.saveButton}>
+  //               Save
+  //               <svg className={css.icon} width="24" height="24">
+  //                 <use href="/sprite/symbol-defs.svg#icon-bookmark-outline"
+  //                      style={{ fill: 'transparent', stroke: 'white' }}/>
+  //               </svg>
+  //             </button>
+  //           )}
+  //         </>
+  //     )
+  // };
 
-return (
+  return (
     <>
       <button
         onClick={isSaved ? handleUnsave : handleSave}
@@ -112,7 +109,11 @@ return (
           height="24"
           style={{ color: 'white' }}
         >
-          <use href={`/sprite/symbol-defs.svg#${isSaved ? 'icon-bookmark-filled' : 'icon-bookmark-outline'}`} />
+          <use
+            href={`/sprite/symbol-defs.svg#${
+              isSaved ? 'icon-bookmark-filled' : 'icon-bookmark-outline'
+            }`}
+          />
         </svg>
       </button>
     </>
