@@ -4,18 +4,20 @@ import css from './ModalLogoutConfirm.module.css';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/auth/operations.js';
 import { useCallback } from 'react';
+import { toast } from 'react-toastify';
 
 const ModalLogoutConfirm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleClose = useCallback(() => dispatch(closeModal()), [dispatch]);
-  
+
   const handleConfirm = async () => {
     try {
       await dispatch(logout()).unwrap();
       dispatch(closeModal());
       navigate('/');
+      toast.success('You have successfully logged out.');
     } catch (e) {
       // показать toast/error при желании
       console.error(e);
