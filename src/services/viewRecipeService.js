@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { store } from '../redux/store.js';
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "https://dcgroup-react-node-b.onrender.com";
 
 export const setAuthHeader = (token) => {
   if (token) axios.defaults.headers.common.Authorization = `Bearer ${token}`;
