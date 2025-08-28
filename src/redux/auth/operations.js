@@ -62,6 +62,10 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     clearAuthHeader();
     return;
   } catch (error) {
+    if (error.response?.status === 404) {
+      clearAuthHeader();
+      return;
+    }
     return thunkAPI.rejectWithValue(error.message);
   }
 });
