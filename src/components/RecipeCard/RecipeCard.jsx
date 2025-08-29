@@ -1,9 +1,13 @@
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
 import { useNavigate } from 'react-router-dom';
 import css from './RecipeCard.module.css';
 import { selectIsLoggedIn } from '../../redux/auth/selectors.js';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../redux/modal/slice.js';
+import { useState } from 'react';
 
 export default function RecipeCard({
   id,
@@ -14,19 +18,33 @@ export default function RecipeCard({
   calories,
 }) {
   const navigate = useNavigate();
+  const [isSavedRecipe, setIsSavedRecipe] = useState(false); //стан для кнопки чи збережений рецепт
+
   const handleLearnMore = () => {
     navigate(`/recipes/${id}`);
   };
 
- const isLoggedIn = useSelector(selectIsLoggedIn);
-  
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
   const dispatch = useDispatch();
 
   //бажання зберегти рецепт
-  const handleAddToSavedRecipes = (e) => {
+  const handleAddToSavedRecipes = async (e) => {
     e.preventDefault();
     if (!isLoggedIn) {
       dispatch(openModal({ type: 'notAuthorized' }));
+    }
+    try {
+      const response = await axios.post(
+        'https://dcgroup-react-node-b.onrender.com/api/recipes/saved', // URL бекенду
+        { recipeId: id }, // дані, які відправляємо
+      );
+      toast.success('Recipe added to saved recipes!');
+      console.log('Saved recipe response:', response.data);
+      setIsSavedRecipe(true);
+    } catch (error) {
+      console.error('Error saving recipe:', error);
+      toast.error('Failed to save recipe.');
     }
   };
 
@@ -37,7 +55,7 @@ export default function RecipeCard({
         <h3 className={css.title}>{title}</h3>
         <div className={css.time_container}>
           <svg width="24" height="24">
-            <use xlinkHref="../../../public/sprite/symbol-defs.svg#icon-clock"></use>
+            <use xlinkHref="/sprite/symbol-defs.svg#icon-clock"></use>
           </svg>
           {/* <svg
             width="24"
@@ -65,9 +83,12 @@ export default function RecipeCard({
         <button className={css.btn_learn} onClick={handleLearnMore}>
           Learn more
         </button>
-        <button className={css.btn_save} onClick={handleAddToSavedRecipes}>
+        <button
+          className={isSavedRecipe ? css.btn_save.saved : css.btn_save}
+          onClick={handleAddToSavedRecipes}
+        >
           <svg width="24" height="24">
-            <use xlinkHref="../../../public/sprite/symbol-defs.svg#icon-bookmark-outline"></use>
+            <use xlinkHref="/sprite/symbol-defs.svg#icon-bookmark-outline"></use>
           </svg>
           {/* <svg
             width="24"

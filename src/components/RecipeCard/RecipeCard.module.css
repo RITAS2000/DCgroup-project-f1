@@ -160,9 +160,14 @@
     height: 40px;
 
     background-color: transparent;
-    color: black;
+    color:  black;
 
     transition: background-color 0.8s;
+}
+.btn_save.saved {
+  background-color: #9b6c43;
+  color: white;
+  border: none; 
 }
 
 .btn_save:hover {
