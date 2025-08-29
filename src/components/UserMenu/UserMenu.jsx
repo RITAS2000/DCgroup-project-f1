@@ -4,28 +4,26 @@ import { selectUser } from '../../redux/auth/selectors.js';
 import { Link } from 'react-router-dom';
 
 import { openModal } from '../../redux/modal/slice.js';
+import { useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
-
-export default function UserMenu({ onClick }) {
+export default function UserMenu() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const navigate = useNavigate();
+  const [firstLetter, setFirstLetter] = useState(user?.name?.charAt(0) || '');
 
+  useEffect(() => {
+    if (user?.name) setFirstLetter(user.name.charAt(0));
+  }, [user?.name]);
 
   const handleLogOut = (e) => {
-    e.preventDefault(); 
-    dispatch(openModal({type: 'logoutConfirm'}));
-
+    e.preventDefault();
+    dispatch(openModal({ type: 'logoutConfirm' }));
   };
 
   return (
     <div className={css.userMenu}>
       <div className={css.userName}>
-        <div className={css.letter}>
-          {user?.name ? user.name.charAt(0) : ''}
-        </div>
+        <div className={css.letter}>{firstLetter || 'U'}</div>
         <span>{user?.name || ''}</span>
       </div>
 
